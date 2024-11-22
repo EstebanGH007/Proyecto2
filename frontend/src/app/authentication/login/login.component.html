@@ -1,0 +1,126 @@
+<!-- Main Wrapper -->
+<div class="main-wrapper login-body">
+  <div class="container">
+    <!-- Formulario de Inicio de Sesión -->
+    <div class="login-wrapper">
+      <div class="loginbox">
+        <div class="login-right">
+          <div class="login-right-wrap">
+
+            <!-- Título -->
+            <h2 class="text-center">Iniciar Sesión</h2>
+
+            <!-- Spinner de Carga -->
+            <div *ngIf="loading" class="text-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Cargando...</span>
+              </div>
+              <p>Cargando... Espere</p>
+            </div>
+
+            <!-- Contenido que se muestra después de que termina la carga -->
+            <div *ngIf="!loading">
+              <!-- Formulario -->
+              <form [formGroup]="form" (ngSubmit)="loginFormSubmit()">
+
+                <div class="form-group">
+                  <label for="Email">Correo Electrónico <span class="login-danger">*</span></label>
+                  <input class="form-control" formControlName="email" type="text"
+                    [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].invalid }" />
+                  <div *ngIf="f['email'].touched && f['email'].invalid" class="invalid-feedback">
+                    <div *ngIf="f['email'].errors && f['email'].errors['required']">
+                      El correo electrónico es obligatorio.
+                    </div>
+                    <div *ngIf="f['email'].errors && f['email'].errors['email']">
+                      Por favor, ingrese una dirección de correo válida.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="Password">Contraseña <span class="login-danger">*</span></label>
+                  <input class="form-control pass-input" [type]="passwordClass ? 'text' : 'password'"
+                    formControlName="password" [ngClass]="{'is-invalid': f['password'].touched && f['password'].invalid}" />
+                  <div *ngIf="f['password'].touched && f['password'].invalid" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors && f['password'].errors['required']">
+                      La contraseña es obligatoria.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Mensaje de Error -->
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="ERROR">
+                  <strong>¡Error!</strong> Ocurrió un <a href="javascript:void(0);" class="alert-link">problema.</a> Las credenciales son incorrectas o no existen.
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <div class="form-group login-btn mt-4">
+                  <button [disabled]="form.invalid" class="btn btn-primary btn-block" type="submit">
+                    Ingresar
+                  </button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Formulario de Inicio de Sesión -->
+  </div>
+</div>
+<!-- /Main Wrapper -->
+
+<!-- Estilos CSS -->
+<style>
+  .main-wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 600px;
+    width: 90%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 2rem;
+  }
+
+  .form-control {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+
+  .btn {
+    background-color: #004080;
+    color: #fff;
+    padding: 12px 0;
+    border-radius: 5px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .form-control {
+      font-size: 0.9rem;
+    }
+  }
+</style>
